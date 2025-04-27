@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Usuario {
@@ -15,6 +17,8 @@ public class Usuario {
     private String nombre;
     private String apellidos;
 
+    // Agregar @JsonFormat para el campo fechaNacimiento
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate fechaNacimiento;
     private Integer numero;
 
@@ -22,7 +26,8 @@ public class Usuario {
     private String correoElectronico;
 
     // Relación: Un usuario puede tener muchas mascotas
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Mascota> mascotas;
 
     // Getters y Setters

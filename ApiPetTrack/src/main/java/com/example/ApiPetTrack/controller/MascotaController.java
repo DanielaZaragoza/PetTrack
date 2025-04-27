@@ -65,6 +65,7 @@ public class MascotaController {
     // Endpoint para obtener detalles completos de una mascota (vacunas, eventos, etc.)
     @GetMapping("/{id}/detalles")
     public ResponseEntity<Mascota> obtenerDetallesMascota(@PathVariable Long id) {
+
         Mascota mascota = mascotaService.obtenerPorId(id);
         if (mascota != null) {
             // Puedes agregar la lógica para obtener detalles adicionales (vacunas, eventos, etc.)
@@ -73,4 +74,5 @@ public class MascotaController {
             return ResponseEntity.notFound().build();
         }
     }
+    
 }
