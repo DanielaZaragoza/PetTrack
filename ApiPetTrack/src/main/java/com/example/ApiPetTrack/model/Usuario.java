@@ -20,7 +20,7 @@ public class Usuario {
     // Agregar @JsonFormat para el campo fechaNacimiento
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate fechaNacimiento;
-    private Integer numero;
+    private String numero;
 
     @Column(name = "correo_electronico", length = 100)
     private String correoElectronico;
