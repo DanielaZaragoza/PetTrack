@@ -2,6 +2,7 @@ package com.example.ApiPetTrack.controller;
 
 import java.util.List;
 
+import com.example.ApiPetTrack.dto.LoginRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -46,4 +47,15 @@ public class UsuarioController {
         Usuario nuevoUsuario = usuarioService.crear(usuario);
         return ResponseEntity.status(HttpStatus.CREATED).body(nuevoUsuario);
     }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
+        try {
+            Usuario usuario = usuarioService.login(loginRequest.getCorreo(), loginRequest.getContrasena());
+            return ResponseEntity.ok(usuario);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+        }
+    }
+
 }
