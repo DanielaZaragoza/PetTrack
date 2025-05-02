@@ -29,4 +29,17 @@ public class UsuarioService {
     public Usuario crear(Usuario usuario) {
         return usuarioRepository.save(usuario);
     }
+
+    public Usuario login(String correo, String contrasena) {
+        Usuario usuario = usuarioRepository.findByCorreo(correo);
+        if (usuario == null) {
+            throw new IllegalArgumentException("Usuario no encontrado");
+        }
+        if (!usuario.getContrasena().equals(contrasena)) {
+            throw new IllegalArgumentException("Contraseña incorrecta");
+        }
+        return usuario;
+    }
+
+
 }

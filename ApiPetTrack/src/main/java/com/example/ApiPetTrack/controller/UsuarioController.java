@@ -2,7 +2,6 @@ package com.example.ApiPetTrack.controller;
 
 import java.util.List;
 
-import com.example.ApiPetTrack.dto.LoginRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.example.ApiPetTrack.dto.LoginRequest;
+
 
 import com.example.ApiPetTrack.model.Usuario;
 import com.example.ApiPetTrack.service.UsuarioService;
