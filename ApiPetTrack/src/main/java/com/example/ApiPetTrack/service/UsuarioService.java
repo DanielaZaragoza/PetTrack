@@ -30,8 +30,8 @@ public class UsuarioService {
         return usuarioRepository.save(usuario);
     }
 
-    public Usuario login(String correo, String contrasena) {
-        Usuario usuario = usuarioRepository.findByCorreo(correo);
+    public Usuario login(String correoElectronico, String contrasena) {
+        Usuario usuario = usuarioRepository.findByCorreoElectronico(correoElectronico);
         if (usuario == null) {
             throw new IllegalArgumentException("Usuario no encontrado");
         }

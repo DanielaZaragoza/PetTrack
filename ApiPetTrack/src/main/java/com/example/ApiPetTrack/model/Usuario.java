@@ -20,13 +20,13 @@ public class Usuario {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate fechaNacimiento;
 
-    private String numero;  // Cambiado a String para manejar diferentes formatos de números
+    private String numero;
 
     @Column(name = "correo_electronico", length = 100, unique = true)
     private String correoElectronico;
 
     @Column(nullable = false)
-    private String contrasena;  // Atributo de contraseña añadido
+    private String contrasena;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonIgnore

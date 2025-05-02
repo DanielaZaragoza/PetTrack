@@ -28,6 +28,16 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
+        try {
+            Usuario usuario = usuarioService.login(loginRequest.getCorreoElectronico(), loginRequest.getContrasena());
+            return ResponseEntity.ok(usuario);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+        }
+    }
+
     @GetMapping
     public List<Usuario> listarUsuarios() {
         return usuarioService.listarTodos();
@@ -47,16 +57,6 @@ public class UsuarioController {
     public ResponseEntity<Usuario> crearUsuario(@RequestBody Usuario usuario) {
         Usuario nuevoUsuario = usuarioService.crear(usuario);
         return ResponseEntity.status(HttpStatus.CREATED).body(nuevoUsuario);
-    }
-
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
-        try {
-            Usuario usuario = usuarioService.login(loginRequest.getCorreo(), loginRequest.getContrasena());
-            return ResponseEntity.ok(usuario);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
-        }
     }
 
 }

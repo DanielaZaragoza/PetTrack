@@ -1,15 +1,15 @@
 package com.example.ApiPetTrack.dto;
 
 public class LoginRequest {
-    private String correo;
+    private String correoElectronico;
     private String contrasena;
 
-    public String getCorreo() {
-        return correo;
+    public String getCorreoElectronico() {
+        return correoElectronico;
     }
 
-    public void setCorreo(String correo) {
-        this.correo = correo;
+    public void setCorreoElectronico(String correoElectronico) {
+        this.correoElectronico = correoElectronico;
     }
 
     public String getContrasena() {
