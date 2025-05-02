@@ -17,15 +17,17 @@ public class Usuario {
     private String nombre;
     private String apellidos;
 
-    // Agregar @JsonFormat para el campo fechaNacimiento
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate fechaNacimiento;
-    private String numero;
 
-    @Column(name = "correo_electronico", length = 100)
+    private String numero;  // Cambiado a String para manejar diferentes formatos de números
+
+    @Column(name = "correo_electronico", length = 100, unique = true)
     private String correoElectronico;
 
-    // Relación: Un usuario puede tener muchas mascotas
+    @Column(nullable = false)
+    private String contrasena;  // Atributo de contraseña añadido
+
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JsonIgnore
     private List<Mascota> mascotas;
@@ -64,11 +66,11 @@ public class Usuario {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    public Integer getNumero() {
+    public String getNumero() {
         return numero;
     }
 
-    public void setNumero(Integer numero) {
+    public void setNumero(String numero) {
         this.numero = numero;
     }
 
@@ -78,6 +80,14 @@ public class Usuario {
 
     public void setCorreoElectronico(String correoElectronico) {
         this.correoElectronico = correoElectronico;
+    }
+
+    public String getContrasena() {
+        return contrasena;
+    }
+
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
     }
 
     public List<Mascota> getMascotas() {
