@@ -9,7 +9,6 @@ import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
 
 import java.io.IOException;
-import java.util.UUID;
 
 @Service
 public class S3Service {
@@ -26,21 +25,31 @@ public class S3Service {
         this.s3Client = s3Client;
     }
 
-    // Resto de tus métodos permanecen igual...
-    public String uploadFile(MultipartFile file) {
-        String key = UUID.randomUUID() + "_" + file.getOriginalFilename();
+    public String uploadImage(MultipartFile file, String directory) {
+        return uploadFileToDirectory(file, "images/" + (directory != null ? directory : ""));
+    }
+
+    public String uploadFile(MultipartFile file, String directory) {
+        return uploadFileToDirectory(file, "files/" + (directory != null ? directory : ""));
+    }
+
+    private String uploadFileToDirectory(MultipartFile file, String directory) {
+        String sanitizedFileName = sanitizeFileName(file.getOriginalFilename());
+        String key = directory + "/" + sanitizedFileName;
 
         try {
             PutObjectRequest putObjectRequest = PutObjectRequest.builder()
                     .bucket(bucketName)
                     .key(key)
                     .contentType(file.getContentType())
+                    .contentDisposition("inline")
+                    .acl("public-read")
                     .build();
 
             s3Client.putObject(putObjectRequest,
                     RequestBody.fromInputStream(file.getInputStream(), file.getSize()));
 
-            return key;
+            return getFileUrl(key);
         } catch (IOException e) {
             throw new RuntimeException("Error al subir el archivo a S3", e);
         }
@@ -57,5 +66,10 @@ public class S3Service {
 
     public String getFileUrl(String fileKey) {
         return String.format("https://%s.s3.%s.amazonaws.com/%s", bucketName, region, fileKey);
+    }
+
+    private String sanitizeFileName(String fileName) {
+        // Reemplaza espacios y caracteres no alfanuméricos (excepto punto, guion, guion bajo)
+        return fileName.replaceAll("[^a-zA-Z0-9.\\-_]", "_");
     }
 }

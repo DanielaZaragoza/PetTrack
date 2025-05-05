@@ -76,8 +76,7 @@ public class MascotaController {
             mascota.getUsuario().setId(usuarioId);
 
             // Subir imagen a S3 y guardar URL
-            String fileKey = s3Service.uploadFile(foto);
-            String fotoUrl = s3Service.getFileUrl(fileKey);
+            String fotoUrl = s3Service.uploadFile(foto, "pettrack/pets"); // YA ES LA URL
             mascota.setFoto(fotoUrl);
 
             // Guardar la mascota
@@ -89,6 +88,7 @@ public class MascotaController {
             return ResponseEntity.internalServerError().build();
         }
     }
+
     // Endpoint para actualizar los datos de una mascota (sin cambios)
     @PutMapping("/{id}")
     public ResponseEntity<Mascota> actualizarMascota(@PathVariable Long usuarioId, @PathVariable Long id, @RequestBody Mascota mascota) {
