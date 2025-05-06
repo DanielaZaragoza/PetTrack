@@ -13,8 +13,12 @@ target/
 .springBeans
 .sts4-cache
 application.properties
-# Ignorar configuración sensible
+# Ignora solo application.properties
 src/main/resources/application.properties
+
+# Pero asegúrate de no ignorar la carpeta
+!src/main/resources/
+
 
 ### IntelliJ IDEA ###
 .idea

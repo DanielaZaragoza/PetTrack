@@ -2,6 +2,7 @@ package com.example.ApiPetTrack.model;
 
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -36,6 +37,7 @@ public class Mascota {
     private Usuario usuario;
 
 	@OneToMany(mappedBy = "mascota", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonIgnore
 	private List<Desparasitacion> desparasitaciones;
 
 
