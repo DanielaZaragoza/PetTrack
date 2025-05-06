@@ -4,6 +4,8 @@ package com.example.ApiPetTrack.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 public class Mascota {
 
@@ -32,6 +34,18 @@ public class Mascota {
     @ManyToOne
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
+
+	@OneToMany(mappedBy = "mascota", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Desparasitacion> desparasitaciones;
+
+
+	public List<Desparasitacion> getDesparasitaciones() {
+		return desparasitaciones;
+	}
+
+	public void setDesparasitaciones(List<Desparasitacion> desparasitaciones) {
+		this.desparasitaciones = desparasitaciones;
+	}
 
 	/**
 	 * @return the id
