@@ -2,7 +2,8 @@ package com.example.ApiPetTrack.model;
 
 import jakarta.persistence.*;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
+
 
 @Entity
 @Table(name = "desparas34itacion")
@@ -13,7 +14,7 @@ public class Desparasitacion {
     private Long id;
 
     @Column(name = "fecha_aplicacion")
-    private LocalDateTime fechaAplicacion;
+    private Timestamp fechaAplicacion;
 
     @Column(name = "peso_kg")
     private Double pesoKg;
@@ -22,7 +23,7 @@ public class Desparasitacion {
     private Double dosis;
 
     @Column(name = "fecha_proxima_aplicacion")
-    private LocalDateTime fechaProximaAplicacion;
+    private Timestamp fechaProximaAplicacion;
 
     @ManyToOne
     @JoinColumn(name = "mascota_id", nullable = false)
@@ -36,11 +37,11 @@ public class Desparasitacion {
         this.id = id;
     }
 
-    public LocalDateTime getFechaAplicacion() {
+    public Timestamp getFechaAplicacion() {
         return fechaAplicacion;
     }
 
-    public void setFechaAplicacion(LocalDateTime fechaAplicacion) {
+    public void setFechaAplicacion(Timestamp fechaAplicacion) {
         this.fechaAplicacion = fechaAplicacion;
     }
 
@@ -60,11 +61,11 @@ public class Desparasitacion {
         this.dosis = dosis;
     }
 
-    public LocalDateTime getFechaProximaAplicacion() {
+    public Timestamp getFechaProximaAplicacion() {
         return fechaProximaAplicacion;
     }
 
-    public void setFechaProximaAplicacion(LocalDateTime fechaProximaAplicacion) {
+    public void setFechaProximaAplicacion(Timestamp fechaProximaAplicacion) {
         this.fechaProximaAplicacion = fechaProximaAplicacion;
     }
 
